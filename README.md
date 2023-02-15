@@ -1,4 +1,6 @@
 # 뱅킹 시스템 만들기 - 넘블
+![image](https://user-images.githubusercontent.com/67006945/218974487-e5acea99-0d60-4140-85e5-8930dca8b980.png)
+
 
 ## 기간
 챌린지 기간: 2023년 2월 10일 - 2022년 3월 10일
