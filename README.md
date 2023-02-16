@@ -30,6 +30,29 @@
 - 회원가입 API
 - 송금 및 알람 관련 구조도
 
+## DB 모델링
+
+![image](https://user-images.githubusercontent.com/67006945/219400596-291038eb-b4a1-42fb-9ac2-73209189bc22.png)
+
+- CUSTOMER 
+    - 간단한 고객정보 테이블
+
+- FRIENDS
+    - 고객 친구 목록 테이블
+
+- ACCOUNT
+    - 계좌정보 테이블
+
+- LOG
+    - 거래 내역을 저장하기 위한 LOG 테이블
+    - 거래 성공/실패 여부를 저장하기 위함
+
+- TRANSACTION
+    - 거래내역 저장 테이블
+    - 요구사항이 계좌 이체만 존재하므로 해당 기능만 고려
+
+---
+
 ## 목표
 
 - [ ]  Method 15 line 이내 작성
