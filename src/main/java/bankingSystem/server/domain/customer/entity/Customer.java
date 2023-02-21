@@ -2,6 +2,7 @@ package bankingSystem.server.domain.customer.entity;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -33,4 +35,13 @@ public class Customer {
 
     @NotNull
     private String passwd;
+
+    public Customer(String name, int phoneNumber, String email, String sex, String userId, String passwd) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.sex = sex;
+        this.userId = userId;
+        this.passwd = passwd;
+    }
 }
