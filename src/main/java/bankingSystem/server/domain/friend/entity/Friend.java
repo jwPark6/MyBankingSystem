@@ -15,9 +15,15 @@ public class Friend {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_userId", referencedColumnName = "userId")
     private Customer customer;
 
     @NotNull
-    private Long friendId;
+    private String friendUserId;
+
+    public Friend(Customer customer, String friendUserId) {
+        this.customer = customer;
+        this.friendUserId = friendUserId;
+        customer.getFriends().add(this);
+    }
 }
