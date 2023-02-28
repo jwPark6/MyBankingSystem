@@ -35,9 +35,9 @@ class CustomerServiceTest {
         customerService.register(customer1);
         Optional<Customer> findMember1 = customerRepository.findById(customer1.getId());
         customerService.register(customer2);
-        Customer findMember2 = customerRepository.findById(2L).get();
+        Optional<Customer> findMember2 = customerRepository.findById(2L);
         assertThat(findMember1.get().getId()).isEqualTo(customer1.getId());
-        assertThat(findMember2).isEqualTo(null);
+        assertThat(findMember2).isEqualTo(Optional.empty());
     }
 
     @Test
