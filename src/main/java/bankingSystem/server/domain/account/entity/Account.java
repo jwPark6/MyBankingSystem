@@ -1,11 +1,13 @@
 package bankingSystem.server.domain.account.entity;
 
 import bankingSystem.server.domain.customer.entity.Customer;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 public class Account {
 
     @Id
@@ -17,4 +19,9 @@ public class Account {
     private Customer customer;
 
     private int balance;
+
+    public Account(Customer customer, int balance) {
+        this.customer = customer;
+        this.balance = balance;
+    }
 }
