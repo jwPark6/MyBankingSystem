@@ -1,5 +1,6 @@
 package bankingSystem.server.domain.customer.controller;
 
+import bankingSystem.server.domain.account.service.AccountService;
 import bankingSystem.server.domain.customer.dto.CustomerDto;
 import bankingSystem.server.domain.customer.entity.Customer;
 import bankingSystem.server.domain.customer.service.CustomerService;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final AccountService accountService;
 
     @GetMapping("/customers")
     public List<CustomerDto> customers() {
@@ -28,6 +30,7 @@ public class CustomerController {
     @PostMapping("/customer")
     public Long register(@RequestBody Customer customer) {
         customerService.register(customer);
+        accountService.register(customer);
         return customer.getId();
     }
 
