@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FriendService {
@@ -37,5 +39,9 @@ public class FriendService {
         Customer customer = customerRepository.findByUserId(customerUserId);
         friendRepository.removeAllByCustomerUserId(customer);
         customer.removeAllFriend();
+    }
+
+    public List<Friend> findAllByCustomerUserId(String customerUserId) {
+        return friendRepository.findByCustomerUserId(customerUserId);
     }
 }
