@@ -1,5 +1,6 @@
 package bankingSystem.server.domain.account.service;
 
+import bankingSystem.server.domain.account.dto.AccountDto;
 import bankingSystem.server.domain.account.entity.Account;
 import bankingSystem.server.domain.account.repository.AccountRepository;
 import bankingSystem.server.domain.customer.entity.Customer;
@@ -64,7 +65,8 @@ public class AccountService {
     }
 
     @Transactional
-    public Account findAllWithTransaction(String customerUserId) {
-        return accountRepository.findByCustomerUserIdWithTx(customerUserId);
+    public AccountDto findAllWithTransaction(String customerUserId) {
+        Account account = accountRepository.findByCustomerUserIdWithTx(customerUserId);
+        return new AccountDto(account);
     }
 }

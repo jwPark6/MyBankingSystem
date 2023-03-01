@@ -1,5 +1,6 @@
 package bankingSystem.server.domain.account.controller;
 
+import bankingSystem.server.domain.account.dto.AccountDto;
 import bankingSystem.server.domain.account.entity.Account;
 import bankingSystem.server.domain.account.repository.AccountRepository;
 import bankingSystem.server.domain.account.service.AccountService;
@@ -15,7 +16,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/account")
-    public Account account (@RequestParam("userId") String userId) {
+    public AccountDto account (@RequestParam("userId") String userId) {
         return accountService.findAllWithTransaction(userId);
     }
 }
