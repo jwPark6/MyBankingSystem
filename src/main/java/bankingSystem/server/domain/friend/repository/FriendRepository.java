@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
-    @Query("select f from Friend f where f.customer.userId = :customerUserId")
+    @Query("select f from Friend f"  +
+            " join fetch f.customer c" +
+            " where c.userId = :customerUserId")
     List<Friend> findByCustomerUserId(@Param("customerUserId") String customerUserId);
 
     Friend findByCustomerUserIdAndFriendUserId(String customerUserId, String friendUserId);
@@ -19,4 +21,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     @Modifying
     @Query("delete from Friend f where f.customer = :customer")
     void removeAllByCustomerUserId(@Param("customer") Customer customer);
+
+    boolean existsByCustomerUserIdAndFriendUserId(String customerUserId, String friendUserId);
 }

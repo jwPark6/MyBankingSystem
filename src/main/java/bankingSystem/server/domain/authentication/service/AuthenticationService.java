@@ -14,7 +14,7 @@ public class AuthenticationService {
 
     // 추후 Security 학습 이후 세션 리팩토링 예정
     public String login(LoginDto loginDto) {
-        Customer customer = customerRepository.findByUserId(loginDto.getUserId());
+        Customer customer = customerRepository.findById(loginDto.getUserId()).get();
         if(customer.getPasswd().equals(loginDto.getPasswd())) return "success";
         return "fail";
     }

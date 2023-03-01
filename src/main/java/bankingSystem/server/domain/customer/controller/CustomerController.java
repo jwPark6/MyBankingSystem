@@ -23,15 +23,15 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/{id}")
-    public CustomerDto customer(@PathVariable("id") Long id) {
+    public CustomerDto customer(@PathVariable("id") String id) {
         return customerService.findOne(id);
     }
 
     @PostMapping("/customer")
-    public Long register(@RequestBody Customer customer) {
+    public String register(@RequestBody Customer customer) {
         customerService.register(customer);
         accountService.register(customer);
-        return customer.getId();
+        return customer.getUserId();
     }
 
 }

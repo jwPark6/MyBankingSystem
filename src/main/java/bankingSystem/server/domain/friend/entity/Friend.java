@@ -17,7 +17,7 @@ public class Friend {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId")
     private Customer customer;
 
     @NotNull
