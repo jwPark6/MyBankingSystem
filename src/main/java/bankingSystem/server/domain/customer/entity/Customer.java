@@ -1,16 +1,21 @@
 package bankingSystem.server.domain.customer.entity;
 
+import bankingSystem.server.domain.friend.entity.Friend;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-public class Customer {
+@NoArgsConstructor
+public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +38,25 @@ public class Customer {
 
     @NotNull
     private String passwd;
+
+    @JsonIgnore // 양방향 무한 연관관계 방지 꼭 기억!
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Friend> friends = new ArrayList<>();
+
+    public Customer(String name, int phoneNumber, String email, String sex, String userId, String passwd) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.sex = sex;
+        this.userId = userId;
+        this.passwd = passwd;
+    }
+
+    public void removeFriend(Friend friend) {
+        this.friends.remove(friend);
+    }
+
+    public void removeAllFriend() {
+        this.friends.clear();
+    }
 }

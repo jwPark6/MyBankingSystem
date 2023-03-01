@@ -32,7 +32,7 @@
 
 ## DB 모델링
 
-![image](https://user-images.githubusercontent.com/67006945/219400596-291038eb-b4a1-42fb-9ac2-73209189bc22.png)
+![image](https://user-images.githubusercontent.com/67006945/220132569-a756569e-b335-4ea8-912d-497b6e880d69.png)
 
 - CUSTOMER 
     - 간단한 고객정보 테이블
@@ -42,10 +42,6 @@
 
 - ACCOUNT
     - 계좌정보 테이블
-
-- LOG
-    - 거래 내역을 저장하기 위한 LOG 테이블
-    - 거래 성공/실패 여부를 저장하기 위함
 
 - TRANSACTION
     - 거래내역 저장 테이블

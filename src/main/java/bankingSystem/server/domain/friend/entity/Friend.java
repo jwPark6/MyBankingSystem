@@ -3,11 +3,13 @@ package bankingSystem.server.domain.friend.entity;
 import bankingSystem.server.domain.customer.entity.Customer;
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Friend {
 
     @Id
@@ -15,9 +17,15 @@ public class Friend {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_userId", referencedColumnName = "userId")
     private Customer customer;
 
     @NotNull
-    private Long friendId;
+    private String friendUserId;
+
+    public Friend(Customer customer, String friendUserId) {
+        this.customer = customer;
+        this.friendUserId = friendUserId;
+        customer.getFriends().add(this);
+    }
 }
