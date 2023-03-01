@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
-    List<Friend> findByCustomerUserId(String customerUserId);
+    @Query("select f from Friend f where f.customer.userId = :customerUserId")
+    List<Friend> findByCustomerUserId(@Param("customerUserId") String customerUserId);
 
     Friend findByCustomerUserIdAndFriendUserId(String customerUserId, String friendUserId);
 
