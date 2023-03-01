@@ -3,11 +3,13 @@ package bankingSystem.server.domain.friend.entity;
 import bankingSystem.server.domain.customer.entity.Customer;
 import com.sun.istack.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Friend {
 
     @Id
