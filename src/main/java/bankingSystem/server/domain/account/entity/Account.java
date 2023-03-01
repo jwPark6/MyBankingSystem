@@ -4,6 +4,8 @@ import bankingSystem.server.domain.customer.entity.Customer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -17,7 +19,8 @@ public class Account {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "userId")
     private Customer customer;
 
     private int balance;

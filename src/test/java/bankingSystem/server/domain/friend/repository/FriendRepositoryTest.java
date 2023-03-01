@@ -28,8 +28,8 @@ class FriendRepositoryTest {
     @Test
     @Transactional
     public void 친구등록_및_조회(){
-        Customer customer1 = customerRepository.findByUserId("asd123");
-        Customer customer2 = customerRepository.findByUserId("fff123");
+        Customer customer1 = customerRepository.findById("asd123").get();
+        Customer customer2 = customerRepository.findById("fff123").get();
 
         List<Friend> all = friendRepository.findAll();
         for (Friend f : all) {
@@ -47,23 +47,10 @@ class FriendRepositoryTest {
     @Test
     @Transactional
     public void 친구삭제() {
-        Customer customer1 = new Customer("t1", 123, "mail111", "남", "asd123", "123123");
-        Customer customer2 = new Customer("t2", 123, "mail2222", "남", "fff123", "123123");
-        Customer customer3 = new Customer("t1", 123, "mail3333", "남", "333123", "123123");
-        Customer customer4 = new Customer("t2", 123, "mail4444", "남", "4444123", "123123");
+        Customer customer1 = customerRepository.findById("asd123").get();
+        Customer customer2 = customerRepository.findById("fff123").get();
 
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
-        customerRepository.save(customer3);
-        customerRepository.save(customer4);
-
-        Friend friend1 = new Friend(customer1, customer2.getUserId());
-        Friend friend2 = new Friend(customer1, customer3.getUserId());
-        Friend friend3 = new Friend(customer1, customer4.getUserId());
-
-        friendRepository.save(friend1);
-        friendRepository.save(friend2);
-        friendRepository.save(friend3);
+        Friend friend1 = friendRepository.findByCustomerUserIdAndFriendUserId(customer1.getUserId(), customer2.getUserId());
 
         friendRepository.delete(friend1);
 
@@ -85,23 +72,7 @@ class FriendRepositoryTest {
     @Test
     @Transactional
     public void cascade삭제테스트() {
-        Customer customer1 = new Customer("t1", 123, "mail111", "남", "asd123", "123123");
-        Customer customer2 = new Customer("t2", 123, "mail2222", "남", "fff123", "123123");
-        Customer customer3 = new Customer("t1", 123, "mail3333", "남", "333123", "123123");
-        Customer customer4 = new Customer("t2", 123, "mail4444", "남", "4444123", "123123");
-
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
-        customerRepository.save(customer3);
-        customerRepository.save(customer4);
-
-        Friend friend1 = new Friend(customer1, customer2.getUserId());
-        Friend friend2 = new Friend(customer1, customer3.getUserId());
-        Friend friend3 = new Friend(customer1, customer4.getUserId());
-
-        friendRepository.save(friend1);
-        friendRepository.save(friend2);
-        friendRepository.save(friend3);
+        Customer customer1 = customerRepository.findById("asd123").get();
 
         customerRepository.delete(customer1);
 
@@ -112,5 +83,14 @@ class FriendRepositoryTest {
         }
 
         assertThat(friends.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void 친구존재확인() {
+        boolean b1 = friendRepository.existsByCustomerUserIdAndFriendUserId("asd123", "fff123");
+        assertThat(b1).isTrue();
+
+        boolean b2 = friendRepository.existsByCustomerUserIdAndFriendUserId("asd123", "????");
+        assertThat(b2).isFalse();
     }
 }

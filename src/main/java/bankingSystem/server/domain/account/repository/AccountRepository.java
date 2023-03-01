@@ -7,5 +7,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Account findByCustomerId(Long customerId);
+    Account findByCustomerUserId(String customerUserId);
 }

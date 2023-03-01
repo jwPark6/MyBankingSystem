@@ -30,16 +30,16 @@ class AccountServiceTest {
 
     @Test
     public void 입출금테스트() {
-        Customer customer1 = new Customer("t1", 123, "mail", "남", "asd123", "123123");
+        Customer customer1 = new Customer("t1", 123, "ttmail", "남", "ttasd123", "123123");
         customerService.register(customer1);
         accountService.register(customer1);
 
         int b1 = accountService.deposit(customer1.getUserId(), 4000);
-        Account account = accountRepository.findByCustomerId(customer1.getId());
+        Account account = accountRepository.findByCustomerUserId(customer1.getUserId());
         assertThat(account.getBalance()).isEqualTo(4000);
 
         int b2 = accountService.withdraw(customer1.getUserId(), 3000);
-        account = accountRepository.findByCustomerId(customer1.getId());
+        account = accountRepository.findByCustomerUserId(customer1.getUserId());
         assertThat(account.getBalance()).isEqualTo(1000);
     }
 

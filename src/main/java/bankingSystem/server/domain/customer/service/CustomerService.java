@@ -22,7 +22,7 @@ public class CustomerService {
 
     public void register(Customer customer) {
         if (!customerRepository.existsByEmail(customer.getEmail())
-                || !customerRepository.existsByUserId(customer.getUserId())) {
+                && !customerRepository.existsByUserId(customer.getUserId())) {
                         customerRepository.save(customer);
         } else {
             log.info("중복 값이 존재");
@@ -37,8 +37,8 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public CustomerDto findOne(Long id) {
-        Customer customer = customerRepository.findById(id).get();
+    public CustomerDto findOne(String userId) {
+        Customer customer = customerRepository.findById(userId).get();
         return new CustomerDto(customer.getName(), customer.getEmail(), customer.getUserId());
     }
 }
