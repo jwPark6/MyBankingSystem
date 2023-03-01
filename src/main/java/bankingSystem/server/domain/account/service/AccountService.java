@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,18 +47,24 @@ public class AccountService {
         return account.updateBalance(money * -1);
     }
 
-//    @Transactional
-//    public int transfer(String userId, int money, String friendUserId) {
-//        Account account = accountRepository.findByCustomerUserId(userId);
-//
-//        if(friendRepository.existsByCustomerUserIdAndFriendUserId(userId, friendUserId)) {
-//            Account fAccount = accountRepository.findByCustomerUserId(friendUserId);
-//
-//
-//            Transaction transaction = new Transaction(account, fAccount.getId(), LocalDateTime.now(), money);
-//            transactionRepository.save(transaction);
-//        } else {
-//            return account.getBalance();
-//        }
-//    }
+    @Transactional
+    public int transfer(String userId, int money, String friendUserId) {
+        Account account = accountRepository.findByCustomerUserId(userId);
+
+        if (friendRepository.existsByCustomerUserIdAndFriendUserId(userId, friendUserId)) {
+            withdraw(userId, money);
+            deposit(friendUserId, money);
+
+            Account fAccount = accountRepository.findByCustomerUserId(friendUserId);
+            Transaction transaction = new Transaction(account, fAccount.getId(), LocalDateTime.now(), money);
+            transactionRepository.save(transaction);
+        }
+
+        return account.getBalance();
+    }
+
+    @Transactional
+    public Account findAllWithTransaction(String customerUserId) {
+        return accountRepository.findByCustomerUserIdWithTx(customerUserId);
+    }
 }
