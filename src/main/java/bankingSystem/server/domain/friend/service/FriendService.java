@@ -18,13 +18,24 @@ public class FriendService {
     private final CustomerRepository customerRepository;
 
     @Transactional
-    public void addFriend(String customerId, String friendUserId) {
-        Customer customer = customerRepository.findByUserId(customerId);
+    public void addFriend(String customerUserId, String friendUserId) {
+        Customer customer = customerRepository.findByUserId(customerUserId);
         Friend friend = new Friend(customer, friendUserId);
         friendRepository.save(friend);
     }
 
-    public void removeFriend(String customerId, String friendUserId) {
+    @Transactional
+    public void removeFriend(String customerUserId, String friendUserId) {
+        Customer customer = customerRepository.findByUserId(customerUserId);
+        Friend friend = friendRepository.findByCustomerUserIdAndFriendUserId(customerUserId, friendUserId);
+        friendRepository.delete(friend);
+        customer.removeFriend(friend);
+    }
 
+    @Transactional
+    public void removeAll(String customerUserId) {
+        Customer customer = customerRepository.findByUserId(customerUserId);
+        friendRepository.removeAllByCustomerUserId(customer);
+        customer.removeAllFriend();
     }
 }
