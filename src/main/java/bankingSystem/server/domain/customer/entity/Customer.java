@@ -38,7 +38,7 @@ public class Customer implements Serializable {
     @NotNull
     private String passwd;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Friend> friends = new ArrayList<>();
 
     public Customer(String name, int phoneNumber, String email, String sex, String userId, String passwd) {
@@ -48,5 +48,13 @@ public class Customer implements Serializable {
         this.sex = sex;
         this.userId = userId;
         this.passwd = passwd;
+    }
+
+    public void removeFriend(Friend friend) {
+        this.friends.remove(friend);
+    }
+
+    public void removeAllFriend() {
+        this.friends.clear();
     }
 }
