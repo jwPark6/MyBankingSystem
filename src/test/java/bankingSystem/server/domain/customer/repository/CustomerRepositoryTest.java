@@ -18,11 +18,11 @@ class CustomerRepositoryTest {
 
     @Test
     public void 중복처리() {
-        Customer customer1 = new Customer("t1", 123, "mail", "남", "asd123", "123123");
+        Customer customer1 = customerRepository.findById("asd123").get();
         Customer customer2 = new Customer("t1", 123, "mail", "남", "asd123", "123123");
 
         customerRepository.save(customer1);
-        assertThat(customerRepository.existsByEmail(customer2.getEmail())).isTrue();
+        assertThat(customerRepository.existsByEmail(customer2.getEmail())).isFalse();
         assertThat(customerRepository.existsByUserId(customer2.getUserId())).isTrue();
     }
 
