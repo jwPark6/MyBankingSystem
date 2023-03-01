@@ -28,13 +28,8 @@ class FriendRepositoryTest {
     @Test
     @Transactional
     public void 친구등록_및_조회(){
-        Customer customer1 = new Customer("t1", 123, "mail111", "남", "asd123", "123123");
-        Customer customer2 = new Customer("t2", 123, "mail2222", "남", "fff123", "123123");
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
-
-        Friend friend = new Friend(customer1, customer2.getUserId());
-        friendRepository.save(friend);
+        Customer customer1 = customerRepository.findByUserId("asd123");
+        Customer customer2 = customerRepository.findByUserId("fff123");
 
         List<Friend> all = friendRepository.findAll();
         for (Friend f : all) {
