@@ -27,6 +27,12 @@ public class CustomerController {
         return customerService.findOne(id);
     }
 
+    //DTO 변환 필요
+    @GetMapping("/customer/{id}/friends")
+    public Customer customerWithFriends(@PathVariable("id") String id) {
+        return customerService.findOneWithFriends(id);
+    }
+
     @PostMapping("/customer")
     public String register(@RequestBody Customer customer) {
         customerService.register(customer);

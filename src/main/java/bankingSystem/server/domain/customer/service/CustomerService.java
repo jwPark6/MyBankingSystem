@@ -41,4 +41,9 @@ public class CustomerService {
         Customer customer = customerRepository.findById(userId).get();
         return new CustomerDto(customer.getName(), customer.getEmail(), customer.getUserId());
     }
+
+    // DTO 전환 필요
+    public Customer findOneWithFriends(String userId) {
+        return customerRepository.findByUserIdWithFriends(userId);
+    }
 }
