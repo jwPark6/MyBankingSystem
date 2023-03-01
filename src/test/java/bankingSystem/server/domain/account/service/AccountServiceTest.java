@@ -1,5 +1,6 @@
 package bankingSystem.server.domain.account.service;
 
+import bankingSystem.server.domain.account.dto.AccountDto;
 import bankingSystem.server.domain.account.entity.Account;
 import bankingSystem.server.domain.account.repository.AccountRepository;
 import bankingSystem.server.domain.customer.entity.Customer;
@@ -48,7 +49,7 @@ class AccountServiceTest {
 
     @Test
     public void 계좌조회() {
-        Account account = accountService.findAllWithTransaction("asd123");
+        AccountDto account = accountService.findAllWithTransaction("asd123");
         List<Transaction> txs = account.getTransactions();
 
         log.info("account = {}", account);
