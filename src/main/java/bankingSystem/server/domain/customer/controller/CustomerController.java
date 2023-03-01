@@ -2,6 +2,7 @@ package bankingSystem.server.domain.customer.controller;
 
 import bankingSystem.server.domain.account.service.AccountService;
 import bankingSystem.server.domain.customer.dto.CustomerDto;
+import bankingSystem.server.domain.customer.dto.CustomerWithFriendDto;
 import bankingSystem.server.domain.customer.entity.Customer;
 import bankingSystem.server.domain.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class CustomerController {
 
     //DTO 변환 필요
     @GetMapping("/customer/{id}/friends")
-    public Customer customerWithFriends(@PathVariable("id") String id) {
+    public CustomerWithFriendDto customerWithFriends(@PathVariable("id") String id) {
         return customerService.findOneWithFriends(id);
     }
 
