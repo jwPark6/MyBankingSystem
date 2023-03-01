@@ -15,11 +15,13 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Customer implements Serializable {
+public class Customer{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String userId;
+
+    @NotNull
+    private String passwd;
 
     @NotNull
     private String name;
@@ -33,14 +35,8 @@ public class Customer implements Serializable {
     @NotNull
     private String sex;
 
-    @NotNull
-    private String userId;
-
-    @NotNull
-    private String passwd;
-
     @JsonIgnore // 양방향 무한 연관관계 방지 꼭 기억!
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Friend> friends = new ArrayList<>();
 
     public Customer(String name, int phoneNumber, String email, String sex, String userId, String passwd) {
