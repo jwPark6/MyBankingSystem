@@ -1,4 +1,4 @@
-_# 뱅킹 시스템 만들기 - 넘블
+# 뱅킹 시스템 만들기 - 넘블
 ![image](https://user-images.githubusercontent.com/67006945/218974487-e5acea99-0d60-4140-85e5-8930dca8b980.png)
 
 
