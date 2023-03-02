@@ -7,7 +7,6 @@ import bankingSystem.server.domain.customer.entity.Customer;
 import bankingSystem.server.domain.friend.repository.FriendRepository;
 import bankingSystem.server.domain.transaction.entity.Transaction;
 import bankingSystem.server.domain.transaction.repository.TransactionRepository;
-import bankingSystem.server.global.DistributeLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -41,11 +40,11 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    @DistributeLock(key = "#userId")
-    public int deposit(String userId, int money) {
-        Account account = accountRepository.findByCustomerUserId(userId);
-        return account.updateBalance(money);
-    }
+//    @DistributeLock(key = "#userId")
+//    public int deposit(String userId, int money) {
+//        Account account = accountRepository.findByCustomerUserId(userId);
+//        return account.updateBalance(money);
+//    }
 
     public int lockDeposit(String userId, int money) throws InterruptedException {
         RLock rLock = redissonClient.getLock(userId);
@@ -86,15 +85,16 @@ public class AccountService {
         Account account = accountRepository.findByCustomerUserId(userId);
 
         if (friendRepository.existsByCustomerUserIdAndFriendUserId(userId, friendUserId)) {
-            int curBalance = withdraw(userId, money);
-            int temp = deposit(friendUserId, money);
-
-            Transaction transaction = new Transaction(account, friendUserId, LocalDateTime.now(), money);
-            transactionRepository.save(transaction);
-
-            return curBalance;
+            try {
+                int curBalance = withdraw(userId, money);
+                int temp = lockDeposit(friendUserId, money);
+                Transaction transaction = new Transaction(account, friendUserId, LocalDateTime.now(), money);
+                transactionRepository.save(transaction);
+                return curBalance;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-
         log.info("======이체 실패 - 현재 잔고======");
         return account.getBalance();
     }

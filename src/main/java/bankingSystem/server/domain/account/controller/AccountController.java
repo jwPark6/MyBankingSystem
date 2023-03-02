@@ -20,11 +20,11 @@ public class AccountController {
         return accountService.findAllWithTransaction(userId);
     }
 
-    @PostMapping("/account/deposit")
-    public int deposit(@RequestParam("money") int money,
-                       @RequestParam("userId") String userId) {
-        return accountService.deposit(userId, money);
-    }
+//    @PostMapping("/account/deposit")
+//    public int deposit(@RequestParam("money") int money,
+//                       @RequestParam("userId") String userId) {
+//        return accountService.deposit(userId, money);
+//    }
 
     @PostMapping("/account/lockDeposit")
     public int lockDeposit(@RequestParam("money") int money,
