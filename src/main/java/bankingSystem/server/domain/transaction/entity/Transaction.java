@@ -24,7 +24,7 @@ public class Transaction {
     private Account account;
 
     @NotNull
-    private Long foreignAccountId;
+    private String foreignUserId;
 
     @NotNull
     private LocalDateTime timeStamp;
@@ -32,9 +32,9 @@ public class Transaction {
     @NotNull
     private int amtWithdrawal;
 
-    public Transaction(Account account, Long foreignAccountId, LocalDateTime timeStamp, int amtWithdrawal) {
+    public Transaction(Account account, String foreignUserId, LocalDateTime timeStamp, int amtWithdrawal) {
         this.account = account;
-        this.foreignAccountId = foreignAccountId;
+        this.foreignUserId = foreignUserId;
         this.timeStamp = timeStamp;
         this.amtWithdrawal = amtWithdrawal;
         account.getTransactions().add(this);
