@@ -3,12 +3,14 @@ package bankingSystem.server.global;
 import bankingSystem.server.domain.account.entity.Account;
 import bankingSystem.server.domain.customer.entity.Customer;
 import bankingSystem.server.domain.friend.entity.Friend;
+import bankingSystem.server.domain.transaction.entity.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -40,10 +42,10 @@ public class InitDb {
             em.persist(customer3);
             em.persist(customer4);
 
-            Account account1 = new Account(customer1, 0);
-            Account account2 = new Account(customer2, 0);
-            Account account3 = new Account(customer3, 0);
-            Account account4 = new Account(customer4, 0);
+            Account account1 = new Account(customer1, 10000);
+            Account account2 = new Account(customer2, 5000);
+            Account account3 = new Account(customer3, 3000);
+            Account account4 = new Account(customer4, 2000);
 
             em.persist(account1);
             em.persist(account2);
@@ -54,9 +56,20 @@ public class InitDb {
             Friend friend2 = new Friend(customer1, customer3.getUserId());
             Friend friend3 = new Friend(customer1, customer4.getUserId());
 
+            Friend friend4 = new Friend(customer3, customer2.getUserId());
+
             em.persist(friend1);
             em.persist(friend2);
             em.persist(friend3);
+            em.persist(friend4);
+
+            Transaction transaction1 = new Transaction(account1, customer2.getUserId(), LocalDateTime.now(), 5000);
+            Transaction transaction2 = new Transaction(account1, customer3.getUserId(), LocalDateTime.now(), 3000);
+            Transaction transaction3 = new Transaction(account1, customer4.getUserId(), LocalDateTime.now(), 2000);
+
+            em.persist(transaction1);
+            em.persist(transaction2);
+            em.persist(transaction3);
         }
     }
 }

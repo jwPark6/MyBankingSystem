@@ -1,6 +1,7 @@
 package bankingSystem.server.domain.customer.service;
 
 import bankingSystem.server.domain.customer.dto.CustomerDto;
+import bankingSystem.server.domain.customer.dto.CustomerWithFriendDto;
 import bankingSystem.server.domain.customer.entity.Customer;
 import bankingSystem.server.domain.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,11 @@ public class CustomerService {
     public CustomerDto findOne(String userId) {
         Customer customer = customerRepository.findById(userId).get();
         return new CustomerDto(customer.getName(), customer.getEmail(), customer.getUserId());
+    }
+
+    // DTO 전환 필요
+    public CustomerWithFriendDto findOneWithFriends(String userId) {
+        Customer customer = customerRepository.findByUserIdWithFriends(userId);
+        return new CustomerWithFriendDto(customer);
     }
 }

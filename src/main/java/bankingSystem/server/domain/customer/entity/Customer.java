@@ -35,7 +35,6 @@ public class Customer{
     @NotNull
     private String sex;
 
-    @JsonIgnore // 양방향 무한 연관관계 방지 꼭 기억!
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Friend> friends = new ArrayList<>();
 

@@ -1,6 +1,8 @@
 package bankingSystem.server.domain.account.entity;
 
 import bankingSystem.server.domain.customer.entity.Customer;
+import bankingSystem.server.domain.transaction.entity.Transaction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GeneratorType;
@@ -8,6 +10,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -22,6 +26,9 @@ public class Account {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "userId")
     private Customer customer;
+
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions = new ArrayList<>();
 
     private int balance;
 

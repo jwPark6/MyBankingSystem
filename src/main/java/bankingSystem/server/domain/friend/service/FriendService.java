@@ -41,6 +41,9 @@ public class FriendService {
         customer.removeAllFriend();
     }
 
+    /**
+    * 사용 지양
+    **/
     public List<Friend> findAllByCustomerUserId(String customerUserId) {
         return friendRepository.findByCustomerUserId(customerUserId);
     }

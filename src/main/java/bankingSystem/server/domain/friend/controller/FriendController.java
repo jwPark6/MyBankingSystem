@@ -15,6 +15,9 @@ public class FriendController {
     private final FriendService friendService;
     private final CustomerService customerService;
 
+    /**
+     * 사용 지양 -> JsonIgnore 방향 변경되어 사용 불가
+     **/
     @GetMapping("/friends")
     public List<Friend> findAllByCustomerUserId (@RequestParam("userId") String customerUserId) {
         return friendService.findAllByCustomerUserId(customerUserId);
